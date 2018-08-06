@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <title>Invoiceify</title>
+</head>
+<body>
+
+    <div>
+        <h2>All Invoices</h2>
+        <div><button type="button" id="buttonCreate">Create An Invoice</button></div>
+        <div><button type="button" id="buttonRefresh">Refresh data</button></div>
+        <i class="fas fa-spinner fa-spin fa-3x" id="spinner" style="display: none;"></i>
+        <ul id="invoices" />
+    </div>
+
+    =
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+        var uri = 'api/invoices/';
+
+        $(function () {
+            getData();
+        });
+
+        function formatItem(item) {
+            return item.Contact.Name + ': $' + item.AmountDue;
+        }
+
+        function getData() {
+            $("#spinner").show();
+            $.getJSON(uri)
+                .done(function (data) {
+                    $.each(data, function (key, item) {
+                        $('<li>', { text: formatItem(item) }).appendTo($('#invoices'));
+                    });
+                    $("#spinner").hide();
+                });
+        }
+
+        $('#buttonCreate').click(function () {
+            $("#spinner").show();
+
+            $.ajax({
+                url: "api/invoices/Create/",
+                success: function (result) {
+                    alert("Successfully created");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+                })
+                .done(function () {
+                    $("#spinner").hide();
+                });
+        });
+
+        $('#buttonRefresh').click(function () {
+            $("#invoices").empty(); 
+            getData();
+        });
+
+    </script>
+</body>
+</html>
