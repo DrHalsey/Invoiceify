@@ -12,11 +12,12 @@ namespace Invoiceify
             // Web API configuration and services
 
             // Web API routes
-            config.MapHttpAttributeRoutes();            
+            config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "ActionApi",
-                routeTemplate: "api/{controller}/{action}"
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
 
             config.Routes.MapHttpRoute(
@@ -24,12 +25,6 @@ namespace Invoiceify
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            //config.Routes.MapHttpRoute(
-            //name: "Index",
-            //routeTemplate: "api/{controller}/{action}/{id}",
-            //defaults: new { controller = "Invoice", action = "Create" }
-            //);
         }
     }
 }

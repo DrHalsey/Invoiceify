@@ -30,7 +30,6 @@ There are several items outside the known issues that if I had another few hours
 
 As with any project, there's a few things bugs I'm aware of.
 
-* The 'Create Invoice' functionality is not longer calling the correct method. I had it working, did some cleanup / refactor, and somehow broke it. Doh.
 * The EF database isn't hooked up, despite my best efforts to debug it. The code has a method for create audit info but I'm adding a basic schema as part of the solution to the root as well.
 
 

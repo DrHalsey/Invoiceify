@@ -20,7 +20,7 @@ namespace Invoiceify.Services
         public IEnumerable<Invoice> GetAllInvoices()
         {
             var xeroApi = _xeroApiClient.ConnectToXero();
-            var invoices = xeroApi.Invoices.OrderByDescending("Date").Find();
+            var invoices = xeroApi.Invoices.OrderByDescending("UpdatedDateUtc").Find();
             return invoices;
         }
 
@@ -28,9 +28,10 @@ namespace Invoiceify.Services
         {
             var xeroApi = _xeroApiClient.ConnectToXero();
 
+            var randomCost = new Random().Next(100, 1000);
             var createdInvoice = xeroApi.Create(new Invoice
             {
-                Contact = new Contact { Name = "ZYX Bank" },
+                Contact = new Contact { Name = "David's Invoice Inc" },
                 Type = InvoiceType.AccountsPayable,
                 Date = DateTime.UtcNow,
                 DueDate = DateTime.UtcNow.AddDays(10),
@@ -42,10 +43,10 @@ namespace Invoiceify.Services
                     new LineItem
                     {
                         AccountCode = "200",
-                        Description = "Pony",
-                        LineAmount = 10m,
-                        Quantity = 4,
-                        UnitAmount = 395
+                        Description = "The greatest invoice ever",
+                        LineAmount = randomCost,
+                        Quantity = 1,
+                        UnitAmount = randomCost
                     }
                 }
             });
@@ -75,8 +76,8 @@ namespace Invoiceify.Services
 
             using (var db = new InvoiceContext())
             {
-                db.Invoices.Add(invoice);
-                db.SaveChanges();
+                //db.Invoices.Add(invoice);
+                //db.SaveChanges();
             }
         }
     }

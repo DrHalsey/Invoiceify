@@ -14,14 +14,16 @@ namespace Invoiceify.Controllers
             _invoiceService = new InvoiceService();
         }
 
+        public Invoice Create()
+        {
+            return _invoiceService.CreateInvoice();
+        }
+
         public IEnumerable<Invoice> GetAllInvoices()
         {
             return _invoiceService.GetAllInvoices();
         }
 
-        public Invoice Create()
-        {
-            return _invoiceService.CreateInvoice();
-        }
+        
     }
 }
