@@ -76,6 +76,7 @@ namespace Invoiceify.Services
 
             using (var db = new InvoiceContext())
             {
+                //Could not get EF working, here is where the audit would happen
                 //db.Invoices.Add(invoice);
                 //db.SaveChanges();
             }
